@@ -227,6 +227,7 @@ function Home() {
 
   const handleMeatToggle = (meat: string) => {
     setSelectedMeats((prev) => {
+      if (prev.has(meat) && prev.size === 1) return prev;
       const next = new Set(prev);
       if (next.has(meat)) next.delete(meat);
       else next.add(meat);
@@ -236,6 +237,7 @@ function Home() {
 
   const handleTimeToggle = (time: string) => {
     setSelectedTimes((prev) => {
+      if (prev.has(time) && prev.size === 1) return prev;
       const next = new Set(prev);
       if (next.has(time)) next.delete(time);
       else next.add(time);
