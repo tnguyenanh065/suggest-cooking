@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Tối nay ăn gì?"
+version = "1.0.0"
+id = "artifacts/mon-an-toi-nay"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 25999
+
+[services.development]
+run = "pnpm --filter @workspace/mon-an-toi-nay run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/mon-an-toi-nay", "run", "build" ]
+publicDir = "artifacts/mon-an-toi-nay/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "25999"
+BASE_PATH = "/"
