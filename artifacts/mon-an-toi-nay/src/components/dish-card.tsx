@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Dish } from "@/hooks/use-dishes";
+import { Dish } from "@workspace/api-client-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Clock, UtensilsCrossed } from "lucide-react";
