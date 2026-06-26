@@ -5,9 +5,6 @@
  * API specification
  * OpenAPI spec version: 0.1.0
  */
-export interface HealthStatus {
-  status: string;
-}
 
 export interface Dish {
   id: number;
@@ -24,22 +21,3 @@ export interface Dish {
   createdAt: string;
   updatedAt: string;
 }
-
-export interface DishInput {
-  stt: number;
-  ten: string;
-  thit: string;
-  canTrung: boolean;
-  canRauCu: boolean;
-  canBot: boolean;
-  canSua: boolean;
-  canGiVi: boolean;
-  thoiGian: string;
-  khongNenAn: string;
-}
-
-export interface SyncResult {
-  synced: number;
-  message: string;
-}
-

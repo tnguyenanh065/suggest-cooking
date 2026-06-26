@@ -10,6 +10,8 @@ servers:
 tags:
   - name: health
     description: Health operations
+  - name: dishes
+    description: Dish management
 paths:
   /healthz:
     get:
@@ -24,6 +26,92 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  /dishes:
+    get:
+      operationId: listDishes
+      tags: [dishes]
+      summary: List all dishes
+      responses:
+        "200":
+          description: List of dishes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Dish"
+    post:
+      operationId: createDish
+      tags: [dishes]
+      summary: Create a new dish
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DishInput"
+      responses:
+        "201":
+          description: Created dish
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Dish"
+
+  /dishes/sync:
+    post:
+      operationId: syncDishes
+      tags: [dishes]
+      summary: Sync dishes from Google Sheets
+      responses:
+        "200":
+          description: Sync result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SyncResult"
+
+  /dishes/{id}:
+    put:
+      operationId: updateDish
+      tags: [dishes]
+      summary: Update a dish
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DishInput"
+      responses:
+        "200":
+          description: Updated dish
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Dish"
+        "404":
+          description: Not found
+    delete:
+      operationId: deleteDish
+      tags: [dishes]
+      summary: Delete a dish
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+
 components:
   schemas:
     HealthStatus:
@@ -34,3 +122,92 @@ components:
       required:
         - status
 
+    Dish:
+      type: object
+      properties:
+        id:
+          type: integer
+        stt:
+          type: integer
+        ten:
+          type: string
+        thit:
+          type: string
+        canTrung:
+          type: boolean
+        canRauCu:
+          type: boolean
+        canBot:
+          type: boolean
+        canSua:
+          type: boolean
+        canGiVi:
+          type: boolean
+        thoiGian:
+          type: string
+        khongNenAn:
+          type: string
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+      required:
+        - id
+        - stt
+        - ten
+        - thit
+        - canTrung
+        - canRauCu
+        - canBot
+        - canSua
+        - canGiVi
+        - thoiGian
+        - khongNenAn
+        - createdAt
+        - updatedAt
+
+    DishInput:
+      type: object
+      properties:
+        stt:
+          type: integer
+        ten:
+          type: string
+        thit:
+          type: string
+        canTrung:
+          type: boolean
+        canRauCu:
+          type: boolean
+        canBot:
+          type: boolean
+        canSua:
+          type: boolean
+        canGiVi:
+          type: boolean
+        thoiGian:
+          type: string
+        khongNenAn:
+          type: string
+      required:
+        - stt
+        - ten
+        - thit
+        - canTrung
+        - canRauCu
+        - canBot
+        - canSua
+        - canGiVi
+        - thoiGian
+        - khongNenAn
+
+    SyncResult:
+      type: object
+      properties:
+        synced:
+          type: integer
+        message:
+          type: string
+      required:
+        - synced
+        - message
